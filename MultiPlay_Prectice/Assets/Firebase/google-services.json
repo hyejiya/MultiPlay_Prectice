@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "175411768113",
+    "project_id": "korcham4th-hyeji",
+    "storage_bucket": "korcham4th-hyeji.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175411768113:android:038b1a4c3cdf376a09de10",
+        "android_client_info": {
+          "package_name": "com.korcham4thhyeji.multiplayprectice"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATZLbRVklcVg5gNVXUPwZ9difX37RSMGk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
