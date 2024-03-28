@@ -32,11 +32,12 @@ namespace MP.UI
         {
             UIManager.instance.PushPopup(this);
             _canvas.enabled = true;
+ 
         }
 
         public virtual void Hide()
         {
-            UIManager.instance.PushPopup(this);
+            UIManager.instance.PopPopup(this);
             _canvas.enabled = false;
         }
 

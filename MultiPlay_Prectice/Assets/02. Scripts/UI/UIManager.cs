@@ -1,10 +1,7 @@
 ﻿using MP.Singleton;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+
 
 namespace MP.UI
 {
@@ -79,7 +76,7 @@ namespace MP.UI
 
             _popups.Pop();
 
-            //이전 팝업의 입력이 먹히게
+            //팝입이 존재하면 터치할 수 있게
             if (_popups.Count > 0)
                 _popups.Peek().inputActionEnable = true;
         }
