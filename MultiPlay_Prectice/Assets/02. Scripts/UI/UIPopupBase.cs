@@ -1,61 +1,31 @@
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MP.UI
 {
-    [RequireComponent(typeof(Canvas))]
-    public class UIPopupBase : MonoBehaviour, IUI
+    public class UIPopupBase : UIBase
     {
-        public int sortingOrder 
-        { 
-            get => _canvas.sortingOrder; 
-            set => _canvas.sortingOrder = value; 
-        }
-        
-        public bool inputActionEnable { get;  set; }
-
-        private Canvas _canvas;
-        private GraphicRaycaster _module;
-        private EventSystem _eventSystem;
-
-        protected virtual void Awake()
+        protected override void Awake()
         {
-            _canvas = GetComponent<Canvas>();
-            _module = GetComponent<GraphicRaycaster>();
-            _eventSystem = EventSystem.current;
+            base.Awake();
+
             UIManager.instance.RegisterPopup(this);
         }
 
-        public virtual void Show()
+        public override void Show()
         {
+            base.Show();
             UIManager.instance.PushPopup(this);
-            _canvas.enabled = true;
- 
         }
 
-        public virtual void Hide()
+        public override void Hide()
         {
+            base.Hide();
+
             UIManager.instance.PopPopup(this);
-            _canvas.enabled = false;
         }
-
-        public virtual void InputAction()
-        {
-          
-        }
-
-        public bool Raycast(List<RaycastResult> results)
-        {
-            int count = results.Count;
-            PointerEventData pointEventData = new PointerEventData(_eventSystem);
-            pointEventData.position = Input.mousePosition;
-            _module.Raycast(pointEventData, results);
-            return count < results.Count;
-        }
-
-
     }
 }
-

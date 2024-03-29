@@ -15,6 +15,8 @@ namespace MP.UI
             _message = transform.Find("Panel/Text (TMP) - Message").GetComponent<TMP_Text>();
             _confirm = transform.Find("Panel/Button - Confirm").GetComponent<Button>();
             _confirm.onClick.AddListener(Hide);
+
+            onInputActionEnableChanged += value => _confirm.interactable = value;
         }
 
         public void Show(string message)
