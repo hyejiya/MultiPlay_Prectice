@@ -110,5 +110,20 @@ namespace MP.UI
             if (_popups.Count > 0)
                 _popups.Peek().inputActionEnable = true;
         }
+
+        /// <summary>
+        /// 전체화면 UI 설정
+        /// </summary>
+        /// <param name="ui"></param>
+        public void SetScreen(IUI ui)
+        {
+            for(int i = _screens.Count - 1; i >= 0; i--)
+            {
+                _screens[i].Hide();
+                _screens.RemoveAt(i);
+            }
+
+            _screens.Add(ui);
+        }
     }
 }

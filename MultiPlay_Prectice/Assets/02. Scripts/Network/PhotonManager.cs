@@ -1,3 +1,4 @@
+using MP.Authentication;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
@@ -42,7 +43,7 @@ namespace MP.Network
             // PhotonNetwork.JoinLobby(); 로비에 들어가기
             // PhotonNetwork.CreateRoom(); 방만들기
 
-            PhotonNetwork.JoinLobby();
+            PhotonNetwork.NickName = Login_Information.nickname;
         }
 
         public override void OnJoinedLobby()

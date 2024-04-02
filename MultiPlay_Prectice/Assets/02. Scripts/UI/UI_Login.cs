@@ -10,6 +10,8 @@ using MP.Authentication;
 using System.Threading.Tasks;
 using Firebase.Firestore;
 using System.Collections.Generic;
+using MP.Utilities;
+using UnityEngine.SceneManagement;
 
 namespace MP.UI
 {
@@ -43,17 +45,25 @@ namespace MP.UI
                                             {
                                                 if (task.IsCanceled)
                                                 {
-                                                    // 로그인 취소에 대한 알림창 팝업
-                                                    UIManager.instance.Get<UIWarningWindow>()
-                                                                      .Show("로그인 취소됨");
+                                                    UpdateDispatcher.instance.Enqueue(() =>
+                                                    {
+                                                        // 로그인 취소에 대한 알림창 팝업
+                                                        UIManager.instance.Get<UIWarningWindow>()
+                                                                          .Show("로그인 취소됨");
+                                                    });
+  
                                                     return;
                                                 }
 
                                                 if (task.IsFaulted)
                                                 {
-                                                    // 로그인 실패에 대한 알림창 팝업
-                                                    UIManager.instance.Get<UIWarningWindow>()
-                                                                     .Show($"로그인 실패 {task.Exception.Message}");
+                                                    UpdateDispatcher.instance.Enqueue(() =>
+                                                    {
+                                                        // 로그인 실패에 대한 알림창 팝업
+                                                        UIManager.instance.Get<UIWarningWindow>()
+                                                                         .Show($"로그인 실패 {task.Exception.Message}");
+                                                    });
+   
                                                     return;
                                                 }
 
@@ -62,23 +72,29 @@ namespace MP.UI
 
                                                 UIManager.instance.Get<UIProfileSettingWindow>().Show();
 
-                                                // 로그인 성공 후에 실행할 추가 내용 (씬 전환, 리소스 로드...)
-/*                                                _ = GetNicknameAsync(id)
-                                                    .ContinueWithOnMainThread(task =>
-                                                    {
-                                                        string nickname = task.Result;
+                                                await FirebaseFirestore.DefaultInstance
+                                                                    .Collection("users")
+                                                                      .Document(Login_Information.userKey)
+                                                                         .GetSnapshotAsync()
+                                                                            .ContinueWithOnMainThread(task =>
+                                                                            {
+                                                                                Dictionary<string, object> documentDictionary = task.Result.ToDictionary();
 
-                                                        if (string.IsNullOrEmpty(nickname))
-                                                        {
-                                                            UIManager.instance.Get<UIProfileSettingWindow>().Show();
-                                                        }
-                                                        else
-                                                        {
-                                                            // todo -> 로비 씬으로 이동..
-                                                            //SceneManager.LoadScene("Lobby")
-                                                        }
+                                                                                UpdateDispatcher.instance.Enqueue(() =>
+                                                                                {
+                                                                                    if (documentDictionary.TryGetValue("nickname", out object value))
+                                                                                    {
+                                                                                        Login_Information.nickname = (string)value;
+                                                                                        SceneManager.LoadScene("Lobby");
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        UIManager.instance.Get<UIProfileSettingWindow>().Show();
+                                                                                    }
+                                                                                });
 
-                                                });*/
+                                                                                
+                                                                            });
                                             });
             });
 
@@ -106,17 +122,25 @@ namespace MP.UI
                                             {
                                                 if (task.IsCanceled)
                                                 {
-                                                    // todo -> 회원가입 취소에 대한 알림창 팝업
-                                                    UIManager.instance.Get<UIWarningWindow>()
-                                                                     .Show("회원가입 취소됨");
+                                                    UpdateDispatcher.instance.Enqueue(() =>
+                                                    {
+                                                        // todo -> 회원가입 취소에 대한 알림창 팝업
+                                                        UIManager.instance.Get<UIWarningWindow>()
+                                                                         .Show("회원가입 취소됨");
+                                                    });
+
                                                     return;
                                                 }
 
                                                 if(task.IsFaulted)
                                                 {
-                                                    // todo -> 회원가입 실패에 대한 알림창 팝업
-                                                    UIManager.instance.Get<UIWarningWindow>()
-                                                                     .Show($"회원가입 실패 {task.Exception.Message}");
+                                                    UpdateDispatcher.instance.Enqueue(() =>
+                                                    {
+                                                        // todo -> 회원가입 실패에 대한 알림창 팝업
+                                                        UIManager.instance.Get<UIWarningWindow>()
+                                                                         .Show($"회원가입 실패 {task.Exception.Message}");
+                                                    });
+
                                                     return;
                                                 }
 

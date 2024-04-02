@@ -14,5 +14,12 @@ namespace MP.UI
 
             UIManager.instance.RegisterPopup(this);
         }
+
+        public override void Show()
+        {
+            base.Show();
+
+            UIManager.instance.SetScreen(this);
+        }
     }
 }
