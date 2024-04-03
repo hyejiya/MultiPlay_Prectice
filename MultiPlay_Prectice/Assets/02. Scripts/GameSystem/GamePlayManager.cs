@@ -9,7 +9,7 @@ namespace MP.GameSystem
     {
         private void Start()
         {
-            PhotonNetwork.Instantiate("Character/Dummy",
+            PhotonNetwork.Instantiate("Character/Unity_Chan",
                                         Vector3.right * Random.Range(-5f, 5f) + Vector3.forward * Random.Range(-5f, 5f), 
                                         Quaternion.identity);
         }
